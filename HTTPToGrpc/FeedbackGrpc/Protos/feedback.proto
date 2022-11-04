@@ -1,0 +1,36 @@
+syntax = "proto3";
+import "google/api/annotations.proto";
+
+option csharp_namespace = "FeedbackGrpc";
+
+service FeedbackGrpcService {
+ rpc GetById (FeedbackRequest) returns (FeedbackResponse){
+	    option (google.api.http) = {
+      get: "/api/Feedbacks/{id}"
+    };
+ };
+  rpc GetAll (FeedbackRequestEmpty) returns (stream FeedbackResponse);
+}
+
+// The request containing the id to query.
+message FeedbackRequest {
+int32 id=1;
+}
+// an 'empty request body'
+message FeedbackRequestEmpty {
+}
+
+// a single domain item response message containing the greetings.
+ 
+message  FeedbackResponse{
+  string id = 1;
+  int32 content = 2;
+  int32 delivery = 3;
+  string comments = 4;
+  int32 talkId = 5;
+}
+
+message FeedbackList{
+    repeated FeeedbackResponse=1;
+}
+
